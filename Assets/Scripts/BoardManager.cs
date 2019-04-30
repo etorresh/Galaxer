@@ -9,6 +9,10 @@ public class BoardManager : MonoBehaviour
     private JumpManager jump;
     private GameObject[,] tokenRegistry;
     public GameObject Player1_1, Player1_2, Player1_3, Player1_4;
+    public GameObject Player2_1, Player2_2, Player2_3, Player2_4;
+    public GameObject Player3_1, Player3_2, Player3_3, Player3_4;
+    public GameObject Player4_1, Player4_2, Player4_3, Player4_4;
+    private GameObject Token1, Token2, Token3, Token4;
 
     private void Start()
     {
@@ -37,9 +41,27 @@ public class BoardManager : MonoBehaviour
 
         if (board[positionX, positionY] < 3)
         {
+            // Borrar ficha anterior
+            if(tokenRegistry[positionX, positionY] != null)
+            {
+                Destroy(tokenRegistry[positionX, positionY]);
+            }
             board[positionX, positionY] += 1;
-            
-            // Animacion de aumento de ficha
+            // Aparecer nueva ficha
+            ChooseModel();
+            Vector3 originPos = new Vector3(positionX, 0.1f, -positionY + 4);
+            switch (board[positionX, positionY])
+            {
+                case 1:
+                    TokenRegister(Instantiate(Token1, originPos, Quaternion.identity));
+                    break;
+                case 2:
+                    TokenRegister(Instantiate(Token2, originPos, Quaternion.identity));
+                    break;
+                case 3:
+                    TokenRegister(Instantiate(Token3, originPos, Quaternion.identity));
+                    break;
+            }
         }
         else if (board[positionX, positionY] == 3)
         {
@@ -51,7 +73,7 @@ public class BoardManager : MonoBehaviour
             board[positionX, positionY] = 0;
             jump.Jump(positionX, positionY);
             Destroy(tokenRegistry[positionX, positionY]);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(1f);
             // Convertir a los de alrededor en el color del jugador actual y en una ficha mayor
             AddPoint(positionX, positionY + 1, false);
             AddPoint(positionX, positionY - 1, false);
@@ -115,6 +137,37 @@ public class BoardManager : MonoBehaviour
                 break;
             default:
                 Debug.Log("AddPlayer parameter must be an integer between 1 and 4.");
+                break;
+        }
+    }
+
+    private void ChooseModel()
+    {
+        switch (turns.temporalTurn)
+        {
+            case 1:
+                Token1 = Player1_1;
+                Token2 = Player1_2;
+                Token3 = Player1_3;
+                Token4 = Player1_4;
+                break;
+            case 2:
+                Token1 = Player2_1;
+                Token2 = Player2_2;
+                Token3 = Player2_3;
+                Token4 = Player2_4;
+                break;
+            case 3:
+                Token1 = Player3_1;
+                Token2 = Player3_2;
+                Token3 = Player3_3;
+                Token4 = Player3_4;
+                break;
+            case 4:
+                Token1 = Player4_1;
+                Token2 = Player4_2;
+                Token3 = Player4_3;
+                Token4 = Player4_4;
                 break;
         }
     }

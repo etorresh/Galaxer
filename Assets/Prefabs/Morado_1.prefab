@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 33302456106817840}
   - component: {fileID: 23109549448065890}
   - component: {fileID: 114824857241837126}
-  - component: {fileID: 114216684127133712}
   - component: {fileID: 65157278238691080}
   - component: {fileID: 54655109445258564}
   - component: {fileID: 6143524393218060028}
@@ -101,29 +100,6 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!114 &114216684127133712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485489205846202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b26b9b66773257d4daa176afefa76448, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dominio: 0
-  puntos: 1
-  jugador_nuevo: {fileID: 1123201424481170, guid: 3afd72583e3847e43ab80b4a87816f1b,
-    type: 3}
-  numero_de_jugador: 3
-  jugador_3_puntos: {fileID: 1320245513727336, guid: e00da90857788bc409d279eb330be9c9,
-    type: 3}
-  jugador_4_puntos: {fileID: 1127202969207814, guid: ac1fedb36b8984246b37ea5aa536a16f,
-    type: 3}
-  es1: 1
-  saltador: 0
 --- !u!65 &65157278238691080
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -165,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bfdc2abb1020e45a3630a189526b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  board: {fileID: 8166809433021083285, guid: e8637b6be72d6474c9d8df898fe6b772, type: 3}
+  player: 4
 --- !u!1 &1529763296959948
 GameObject:
   m_ObjectHideFlags: 0
