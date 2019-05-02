@@ -39,7 +39,7 @@ public class JumpManager : MonoBehaviour
 
     private void ChooseModel()
     {
-        switch (turns.temporalTurn)
+        switch (turns.currentTurn)
         {
             case 1:
                 jumpAnimation = jumpAnimation1;

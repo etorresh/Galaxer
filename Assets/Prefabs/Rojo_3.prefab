@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 8254135589733556365}
   m_Layer: 0
   m_Name: Rojo_3
-  m_TagString: Jugador2
+  m_TagString: Jugador3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

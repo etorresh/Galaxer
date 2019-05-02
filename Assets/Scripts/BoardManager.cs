@@ -48,7 +48,6 @@ public class BoardManager : MonoBehaviour
             }
             board[positionX, positionY] += 1;
             // Aparecer nueva ficha
-            ChooseModel();
             Vector3 originPos = new Vector3(positionX, 0.1f, -positionY + 4);
             switch (board[positionX, positionY])
             {
@@ -67,9 +66,9 @@ public class BoardManager : MonoBehaviour
         {
             if(firstJump)
             {
-                turns.Freeze();
+                turns.IsClickable = false;
+                turns.OutlineUpdate();
             }
-            turns.OutlineUpdate();
             board[positionX, positionY] = 0;
             jump.Jump(positionX, positionY);
             Destroy(tokenRegistry[positionX, positionY]);
@@ -86,8 +85,9 @@ public class BoardManager : MonoBehaviour
         }
         if(firstJump)
         {
-            turns.Unfreeze();
             turns.IncreaseTurn();
+            turns.IsClickable = true;
+            turns.OutlineUpdate();
         }
     }
 
@@ -141,9 +141,9 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    private void ChooseModel()
+    public void ChooseModel()
     {
-        switch (turns.temporalTurn)
+        switch (turns.currentTurn)
         {
             case 1:
                 Token1 = Player1_1;

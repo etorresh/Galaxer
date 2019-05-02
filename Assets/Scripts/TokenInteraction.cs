@@ -16,8 +16,9 @@ public class TokenInteraction : MonoBehaviour
 
     void OnMouseDown()
     {
-        if(turns.currentTurn == player)
+        if(turns.currentTurn == player && turns.IsClickable)
         {
+            board.ChooseModel();
             board.AddPoint((int)gameObject.transform.position.x, 4 - (int)gameObject.transform.position.z, true);
         }
     }

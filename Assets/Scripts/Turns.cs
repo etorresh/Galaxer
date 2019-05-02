@@ -7,9 +7,8 @@ public class Turns : MonoBehaviour
     public int currentPlayers;
     private int[] players;
     public int currentTurn;
+    public bool IsClickable = true;
     int currentTurnIndex;
-
-    public int temporalTurn;
 
     public void GameStart()
     {
@@ -37,7 +36,6 @@ public class Turns : MonoBehaviour
             currentTurnIndex = 0;
         }
         currentTurn = players[currentTurnIndex];
-        OutlineUpdate();
     }
 
     public void OutlineUpdate()
@@ -53,7 +51,7 @@ public class Turns : MonoBehaviour
                 }
             }
         }
-        if (currentTurn != 5)
+        if(IsClickable)
         {
             GameObject[] tokensEnable = GameObject.FindGameObjectsWithTag("Jugador" + players[currentTurnIndex].ToString());
             foreach (GameObject token in tokensEnable)
@@ -64,16 +62,5 @@ public class Turns : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void Freeze()
-    {
-        temporalTurn = currentTurn;
-        currentTurn = 5;
-    }
-
-    public void Unfreeze()
-    {
-        currentTurn = temporalTurn;
     }
 }

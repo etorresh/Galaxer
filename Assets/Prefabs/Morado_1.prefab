@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6143524393218060028}
   m_Layer: 0
   m_Name: Morado_1
-  m_TagString: Jugador3
+  m_TagString: Jugador4
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
