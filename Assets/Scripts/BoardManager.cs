@@ -34,60 +34,87 @@ public class BoardManager : MonoBehaviour
 
     private IEnumerator Point(int positionX, int positionY, bool firstJump)
     {
-        if (positionX == -1 || positionX == 8 || positionY == -1 || positionY == 8)
+        if (positionX != -1 && positionX != 8 && positionY != -1 && positionY != 8)
         {
-            yield break;
-        }
-
-        if (board[positionX, positionY] < 3)
-        {
-            // Borrar ficha anterior
-            if(tokenRegistry[positionX, positionY] != null)
+            if (board[positionX, positionY] < 3)
             {
+                // Borrar ficha anterior
+                if(tokenRegistry[positionX, positionY] != null)
+                {
+                    Destroy(tokenRegistry[positionX, positionY]);
+                }
+                board[positionX, positionY] += 1;
+                // Aparecer nueva ficha
+                Vector3 originPos = new Vector3(positionX, 0.1f, -positionY + 4);
+                switch (board[positionX, positionY])
+                {
+                    case 1:
+                        TokenRegister(Instantiate(Token1, originPos, Quaternion.identity));
+                        break;
+                    case 2:
+                        TokenRegister(Instantiate(Token2, originPos, Quaternion.identity));
+                        break;
+                    case 3:
+                        TokenRegister(Instantiate(Token3, originPos, Quaternion.identity));
+                        break;
+                }
+            }
+            else if (board[positionX, positionY] == 3)
+            {
+                if (firstJump)
+                {
+                    // Predict jump time here.
+                    PredictJumps(positionX, positionY, true);
+                    turns.IsClickable = false;
+                    turns.OutlineUpdate();
+                }
+                // Agregar ficha 4 que después salte.
+                board[positionX, positionY] = 0;
+                jump.Jump(positionX, positionY);
                 Destroy(tokenRegistry[positionX, positionY]);
+                yield return new WaitForSeconds(1f);
+                // Convertir a los de alrededor en el color del jugador actual y en una ficha mayor
+                AddPoint(positionX, positionY + 1, false);
+                AddPoint(positionX, positionY - 1, false);
+                AddPoint(positionX - 1, positionY, false);
+                AddPoint(positionX + 1, positionY, false);
             }
-            board[positionX, positionY] += 1;
-            // Aparecer nueva ficha
-            Vector3 originPos = new Vector3(positionX, 0.1f, -positionY + 4);
-            switch (board[positionX, positionY])
+            else
             {
-                case 1:
-                    TokenRegister(Instantiate(Token1, originPos, Quaternion.identity));
-                    break;
-                case 2:
-                    TokenRegister(Instantiate(Token2, originPos, Quaternion.identity));
-                    break;
-                case 3:
-                    TokenRegister(Instantiate(Token3, originPos, Quaternion.identity));
-                    break;
+                Debug.Log("AddPoint comparison resulted in a number higher than 3");
+            }
+            if(firstJump)
+            {
+                // Use jump prediction time to wait here.
+                yield return new WaitForSeconds(waitTime);
+                turns.IncreaseTurn();
+                turns.IsClickable = true;
+                turns.OutlineUpdate();
             }
         }
-        else if (board[positionX, positionY] == 3)
+    }
+
+    public float waitTime;
+    int[,] boardJumps;
+    private void PredictJumps(int positionX, int positionY, bool firstJump)
+    {
+        if (positionX != -1 && positionX != 8 && positionY != -1 && positionY != 8)
         {
             if(firstJump)
             {
-                turns.IsClickable = false;
-                turns.OutlineUpdate();
+                waitTime = -1;
+                boardJumps = (int[,])board.Clone();
             }
-            board[positionX, positionY] = 0;
-            jump.Jump(positionX, positionY);
-            Destroy(tokenRegistry[positionX, positionY]);
-            yield return new WaitForSeconds(1f);
-            // Convertir a los de alrededor en el color del jugador actual y en una ficha mayor
-            AddPoint(positionX, positionY + 1, false);
-            AddPoint(positionX, positionY - 1, false);
-            AddPoint(positionX - 1, positionY, false);
-            AddPoint(positionX + 1, positionY, false);
-        }
-        else
-        {
-            Debug.Log("AddPoint comparison resulted in a number higher than 3");
-        }
-        if(firstJump)
-        {
-            turns.IncreaseTurn();
-            turns.IsClickable = true;
-            turns.OutlineUpdate();
+            boardJumps[positionX, positionY] += 1;
+            if (boardJumps[positionX, positionY] == 4)
+            {
+                boardJumps[positionX, positionY] = 0;
+                waitTime += 1;
+                PredictJumps(positionX + 1, positionY, false);
+                PredictJumps(positionX - 1, positionY, false);
+                PredictJumps(positionX, positionY + 1, false);
+                PredictJumps(positionX, positionY - 1, false);
+            }
         }
     }
 
