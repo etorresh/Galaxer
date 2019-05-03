@@ -9,6 +9,12 @@ public class Turns : MonoBehaviour
     public int currentTurn;
     public bool IsClickable = true;
     int currentTurnIndex;
+    private BoardManager board;
+
+    private void Start()
+    {
+        board = GameObject.FindWithTag("MainCamera").GetComponent<BoardManager>();
+    }
 
     public void GameStart()
     {
@@ -30,6 +36,7 @@ public class Turns : MonoBehaviour
 
     public void IncreaseTurn()
     {
+        board.waitTime = 0;
         currentTurnIndex += 1;
         if(players.Length == currentTurnIndex)
         {

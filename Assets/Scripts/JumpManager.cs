@@ -18,23 +18,22 @@ public class JumpManager : MonoBehaviour
     {
         ChooseModel();
         Vector3 originPos = new Vector3(positionX, 0.1f, -positionZ + 4);
-        if(positionX != 7)
+        if (positionX != 7)
         {
             Instantiate(jumpAnimation, originPos, Quaternion.identity);
         }
-        if(positionZ != 7)
+        if (positionZ != 7)
         {
             Instantiate(jumpAnimation, originPos, Quaternion.identity).transform.Rotate(0, 90, 0);
         }
-        if(positionX != 0)
+        if (positionX != 0)
         {
             Instantiate(jumpAnimation, originPos, Quaternion.identity).transform.Rotate(0, 180, 0);
         }
-        if(positionZ != 0)
+        if (positionZ != 0)
         {
             Instantiate(jumpAnimation, originPos, Quaternion.identity).transform.Rotate(0, 270, 0);
         }
-        new WaitForSeconds(5);
     }
 
     private void ChooseModel()
