@@ -22,22 +22,11 @@ public class PathFinder: MonoBehaviour
         blacklist = new List<int>();
         pathsTime = new List<int>();
         timer = 0;
+        originX = posX;
+        originY = posY;
 
-        CreatePaths(posX, posY);
-
-        // Find starting position
-        for (int i = 0; i < Paths.GetLength(0); i++)
-        {
-            for (int j = 0; j < Paths.GetLength(1); j++)
-            {
-                if (Paths[j, i] == 1)
-                {
-                    originX = j;
-                    originY = i;
-                    FindPath(j, i);
-                }
-            }
-        }
+        CreatePaths(originX, originY);
+        FindPath(originX, originY);        
         return Mathf.Max(pathsTime.ToArray());
     }
 
