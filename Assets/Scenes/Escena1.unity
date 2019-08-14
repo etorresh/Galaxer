@@ -294,6 +294,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 65077760343844274, guid: 9c2ccde2423644e4cb4794aeae9454ad,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 65077760343844274, guid: 9c2ccde2423644e4cb4794aeae9454ad,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114975910668183014, guid: 9c2ccde2423644e4cb4794aeae9454ad, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9c2ccde2423644e4cb4794aeae9454ad, type: 3}
@@ -1029,6 +1039,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 65107692379675600, guid: 2c7f159b3a6d5194c9676ded4cb9753c,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 65107692379675600, guid: 2c7f159b3a6d5194c9676ded4cb9753c,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 114344555370969832, guid: 2c7f159b3a6d5194c9676ded4cb9753c, type: 3}
@@ -1447,6 +1467,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 65129977873192762, guid: 1faa2bd25a32d474eb126e23225a4714,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 65129977873192762, guid: 1faa2bd25a32d474eb126e23225a4714,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114098978676967108, guid: 1faa2bd25a32d474eb126e23225a4714, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1faa2bd25a32d474eb126e23225a4714, type: 3}
@@ -1719,6 +1749,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 65493016532634010, guid: e00da90857788bc409d279eb330be9c9,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 65493016532634010, guid: e00da90857788bc409d279eb330be9c9,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 1.2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114547526548963784, guid: e00da90857788bc409d279eb330be9c9, type: 3}
