@@ -19,15 +19,21 @@ public class CodeTesting : MonoBehaviour
         board[0, 0] = 3;
         board[1, 0] = 3;
         board[0, 1] = 3;
-        board[1, 1] = 3;
+        board[1, 1] = 2;
         board[2, 1] = 3;
         board[3, 1] = 3;
-        board[1, 2] = 3;
-        board[1, 3] = 3;
-        board[1, 4] = 3;
-        board[1, 5] = 3;
-        board[0, 5] = 3;
-        board[0, 4] = 3;
+        board[3, 2] = 3;
+        board[4, 2] = 3;
+        board[5, 2] = 3;
+        board[3, 3] = 3;
+        board[3, 4] = 3;
+        board[3, 5] = 3;
+        board[3, 6] = 3;
+        board[3, 7] = 3;
+        board[4, 4] = 3;
+        board[4, 5] = 3;
+        board[3, 3] = 3;
+        board[2, 3] = 2;
 
 
 
@@ -35,7 +41,7 @@ public class CodeTesting : MonoBehaviour
 
 
         print(Nasty2D(board));
-        print(pf.Run(board, 0, 0));
+        print("Wait time: " + pf.Run(board, 0, 0));
     }
 
     private string Nasty2D(int[,] nastyArray)
