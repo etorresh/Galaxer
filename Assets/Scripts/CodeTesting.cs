@@ -10,12 +10,6 @@ public class CodeTesting : MonoBehaviour
         pf = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PathFinder>();
 
         int[,] board = new int[8, 8];
-        int rowLength = board.GetLength(0);
-        int colLength = board.GetLength(1);
-        for (int k = 0; k < 8; k++)
-            for (int l = 0; l < 8; l++)
-                board[k, l] = 0;
-
         board[0, 0] = 3;
         board[1, 0] = 3;
         board[0, 1] = 3;
@@ -35,10 +29,20 @@ public class CodeTesting : MonoBehaviour
         board[3, 3] = 3;
         board[2, 3] = 2;
 
-
-
-
-
+        int[,] board2 = new int[8, 8];
+        board2[0, 0] = 3;
+        board2[1, 0] = 3;
+        board2[0, 1] = 3;
+        board2[1, 1] = 2;
+        board2[2, 1] = 3;
+        board2[3, 1] = 3;
+        board2[0, 0] = 3;
+        board2[1, 2] = 3;
+        board2[1, 3] = 3;
+        board2[1, 4] = 3;
+        board2[1, 5] = 3;
+        board2[0, 4] = 3;
+        board2[0, 5] = 2;
 
         print(Nasty2D(board));
         print("Wait time: " + pf.Run(board, 0, 0));
