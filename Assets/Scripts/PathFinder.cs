@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathFinder: MonoBehaviour
+public class PathFinder : MonoBehaviour
 {
     private int[,] Paths, boardClone;
     private int jumpEnumerator;
@@ -26,7 +26,7 @@ public class PathFinder: MonoBehaviour
         originY = posY;
 
         CreatePaths(originX, originY);
-        FindPath(originX, originY);        
+        FindPath(originX, originY);
         return Mathf.Max(pathsTime.ToArray());
     }
 
@@ -38,7 +38,7 @@ public class PathFinder: MonoBehaviour
             boardClone[posX, posY] = 0;
             Paths[posX, posY] = jumpEnumerator;
             jumpEnumerator += 1;
-            if(posX != 7)
+            if (posX != 7)
             {
                 CreatePaths(posX + 1, posY);
             }
@@ -71,7 +71,7 @@ public class PathFinder: MonoBehaviour
 
         if (posX != 7)
         {
-            if(Paths[posX + 1, posY] > currentPositon && !blacklist.Contains(Paths[posX + 1, posY]))
+            if (Paths[posX + 1, posY] > currentPositon && !blacklist.Contains(Paths[posX + 1, posY]))
             {
                 surroundingValues[0] = Paths[posX + 1, posY];
                 move = true;
@@ -95,14 +95,14 @@ public class PathFinder: MonoBehaviour
         }
         if (posY != 0)
         {
-            if (Paths[posX, posY- 1] > currentPositon && !blacklist.Contains(Paths[posX, posY - 1]))
+            if (Paths[posX, posY - 1] > currentPositon && !blacklist.Contains(Paths[posX, posY - 1]))
             {
                 surroundingValues[3] = Paths[posX, posY - 1];
                 move = true;
             }
         }
-    
-        if(move)
+
+        if (move)
         {
             int pathIndex = Array.IndexOf(surroundingValues, Mathf.Max(surroundingValues));
             if (pathIndex == 0)
@@ -128,14 +128,14 @@ public class PathFinder: MonoBehaviour
         }
         else
         {
-            if(currentPositon == 1)
+            if (currentPositon == 1)
             {
                 return;
             }
             blacklist.Add(currentPositon);
             pathsTime.Add(timer);
+            timer = 0;
             FindPath(originX, originY);
         }
     }
 }
-
