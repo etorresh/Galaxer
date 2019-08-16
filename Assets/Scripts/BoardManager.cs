@@ -9,7 +9,7 @@ public class BoardManager : MonoBehaviour
     public JumpManager jump;
     public PathFinder pf;
 
-    private GameObject[,] tokenRegistry;
+    public GameObject[,] tokenRegistry;
     public GameObject Player1_1, Player1_2, Player1_3;
     public GameObject Player2_1, Player2_2, Player2_3;
     public GameObject Player3_1, Player3_2, Player3_3;
