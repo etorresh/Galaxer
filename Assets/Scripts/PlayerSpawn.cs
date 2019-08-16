@@ -5,27 +5,11 @@ using UnityEngine;
 public class PlayerSpawn : MonoBehaviour
 {
     public int player;
-    private GameObject token;
-    private BoardManager board;
-    private Turns turns;
-    private GameObject play;
+    public GameObject token;
 
-    private void Awake()
-    {
-        play = GameObject.Find("Play");
-    }
-
-    private void Start()
-    {
-        token = GameObject.FindWithTag("Jugador" + player.ToString());
-        token.SetActive(false);
-        board = GameObject.FindWithTag("MainCamera").GetComponent<BoardManager>();
-        turns = GameObject.FindWithTag("MainCamera").GetComponent<Turns>();
-        if (play.activeSelf)
-        {
-            play.SetActive(false);
-        }
-    }
+    public BoardManager board;
+    public Turns turns;
+    public GameObject play;
 
     private void OnMouseDown()
     {

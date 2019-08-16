@@ -6,12 +6,14 @@ public class TokenInteraction : MonoBehaviour
 {
     public int player;
     private BoardManager board;
-    private Turns turns;
+    public Turns turns;
 
     private void Start()
     {
-        board = GameObject.FindWithTag("MainCamera").GetComponent<BoardManager>();
-        turns = GameObject.FindWithTag("MainCamera").GetComponent<Turns>();
+        GameObject mainCamera = Camera.main.gameObject;
+
+        board = mainCamera.GetComponent<BoardManager>();
+        turns = mainCamera.GetComponent<Turns>();
     }
 
     void OnMouseDown()

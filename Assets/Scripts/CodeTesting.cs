@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class CodeTesting : MonoBehaviour
 {
-    private PathFinder pf;
+    public PathFinder pf;
     void Start()
     {
-        pf = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PathFinder>();
-
         int[,] board = new int[8, 8];
         board[0, 0] = 3;
         board[1, 0] = 3;
