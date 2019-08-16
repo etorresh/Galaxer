@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Turns : MonoBehaviour
 {
@@ -31,13 +32,56 @@ public class Turns : MonoBehaviour
 
     public void IncreaseTurn()
     {
-        board.waitTime = 0;
-        currentTurnIndex += 1;
-        if(players.Length == currentTurnIndex)
+        if (!WinCheck())
         {
-            currentTurnIndex = 0;
+            board.waitTime = 0;
+            currentTurnIndex += 1;
+            if (players.Length == currentTurnIndex)
+            {
+                currentTurnIndex = 0;
+            }
+            currentTurn = players[currentTurnIndex];
         }
-        currentTurn = players[currentTurnIndex];
+    }
+
+    public bool WinCheck()
+    {
+        // returns wiiner, if no one has won returns 0
+        bool oneAlive, twoAlive, threeAlive, fourAlive;
+        oneAlive = twoAlive = threeAlive = fourAlive = false;
+
+        foreach (GameObject token in board.tokenRegistry)
+        {
+            if (new[] { oneAlive, twoAlive, threeAlive, fourAlive }.Count(x => x) > 1)
+            {
+                break;
+            }
+            if (token != null)
+            {
+                if (token.GetComponent<TokenInteraction>().player == 1)
+                {
+                    oneAlive = true;
+                }
+                if (token.GetComponent<TokenInteraction>().player == 2)
+                {
+                    twoAlive = true;
+                }
+                if (token.GetComponent<TokenInteraction>().player == 3)
+                {
+                    threeAlive = true;
+                }
+                if (token.GetComponent<TokenInteraction>().player == 4)
+                {
+                    fourAlive = true;
+                }
+            }
+        }
+        if (new[] { oneAlive, twoAlive, threeAlive, fourAlive }.Count(x => x) == 1)
+        {
+            print("someone won");
+            return true;
+        }
+        return false; 
     }
 
     public void OutlineUpdate()
@@ -53,7 +97,7 @@ public class Turns : MonoBehaviour
                 }
             }
         }
-        if(IsClickable)
+        if (IsClickable)
         {
             GameObject[] tokensEnable = GameObject.FindGameObjectsWithTag("Jugador" + players[currentTurnIndex].ToString());
             foreach (GameObject token in tokensEnable)
