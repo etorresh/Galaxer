@@ -9,12 +9,7 @@ public class Turns : MonoBehaviour
     public int currentTurn;
     public bool IsClickable = true;
     int currentTurnIndex;
-    private BoardManager board;
-
-    private void Start()
-    {
-        board = GameObject.FindWithTag("MainCamera").GetComponent<BoardManager>();
-    }
+    public BoardManager board;
 
     public void GameStart()
     {

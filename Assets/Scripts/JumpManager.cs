@@ -7,12 +7,7 @@ public class JumpManager : MonoBehaviour
     private GameObject jumpAnimation;
     public GameObject jumpAnimation1, jumpAnimation2, jumpAnimation3, jumpAnimation4;
 
-    private Turns turns;
-
-    private void Start()
-    {
-        turns = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Turns>();
-    }
+    public Turns turns;
 
     public void Jump(int positionX, int positionZ)
     {

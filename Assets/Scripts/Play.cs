@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Play : MonoBehaviour
 {
-    private Turns turns;
+    public Turns turns;
+    public PlayerSpawn spawner1, spawner2, spawner3, spawner4;
+
 
     private void OnMouseDown()
     {
-        GameObject[] objects = GameObject.FindGameObjectsWithTag("Spawner");
-        foreach (GameObject obj in objects)
-        {
-            obj.GetComponent<PlayerSpawn>().StartGame();
-        }
-        turns = GameObject.FindWithTag("MainCamera").GetComponent<Turns>();
+        spawner1.StartGame();
+        spawner2.StartGame();
+        spawner3.StartGame();
+        spawner4.StartGame();
         turns.GameStart();
         Destroy(gameObject);
     }

@@ -5,20 +5,22 @@ using UnityEngine;
 public class BoardManager : MonoBehaviour
 {
     int[,] board = new int[8, 8];
-    private Turns turns;
-    private JumpManager jump;
+    public Turns turns;
+    public JumpManager jump;
+    public PathFinder pf;
+
     private GameObject[,] tokenRegistry;
-    public GameObject Player1_1, Player1_2, Player1_3, Player1_4;
-    public GameObject Player2_1, Player2_2, Player2_3, Player2_4;
-    public GameObject Player3_1, Player3_2, Player3_3, Player3_4;
-    public GameObject Player4_1, Player4_2, Player4_3, Player4_4;
-    private GameObject Token1, Token2, Token3, Token4;
+    public GameObject Player1_1, Player1_2, Player1_3;
+    public GameObject Player2_1, Player2_2, Player2_3;
+    public GameObject Player3_1, Player3_2, Player3_3;
+    public GameObject Player4_1, Player4_2, Player4_3;
+    private GameObject Token1, Token2, Token3;
+
+    // The reason why PathFinder exists
+    public int waitTime;
 
     private void Start()
     {
-        turns = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Turns>();
-        jump = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<JumpManager>();
-
         tokenRegistry = new GameObject[8, 8];
     }
 
@@ -38,13 +40,13 @@ public class BoardManager : MonoBehaviour
         {
             if (board[positionX, positionY] < 3)
             {
-                // Borrar ficha anterior
+                // Delete old token gameobject
                 if(tokenRegistry[positionX, positionY] != null)
                 {
                     Destroy(tokenRegistry[positionX, positionY]);
                 }
                 board[positionX, positionY] += 1;
-                // Aparecer nueva ficha
+                // Spawn new token
                 Vector3 originPos = new Vector3(positionX, 0.1f, -positionY + 4);
                 switch (board[positionX, positionY])
                 {
@@ -64,24 +66,21 @@ public class BoardManager : MonoBehaviour
                 if (firstJump)
                 {
                     // Predict jump time here.
-                    PredictJumps(positionX, positionY, true);
+                    // The prediction is done here because it uses the board
+                    waitTime = pf.Run(board, positionX, positionY);
                     turns.IsClickable = false;
                     turns.OutlineUpdate();
                 }
-                // Agregar ficha 4 que después salte.
                 board[positionX, positionY] = 0;
                 jump.Jump(positionX, positionY);
                 Destroy(tokenRegistry[positionX, positionY]);
                 yield return new WaitForSeconds(1f);
-                // Convertir a los de alrededor en el color del jugador actual y en una ficha mayor
+                // Wait a second for jump animation to end
+                // Then check surrounding tokens
                 AddPoint(positionX, positionY + 1, false);
                 AddPoint(positionX, positionY - 1, false);
                 AddPoint(positionX - 1, positionY, false);
                 AddPoint(positionX + 1, positionY, false);
-            }
-            else
-            {
-                Debug.Log("AddPoint comparison resulted in a number higher than 3");
             }
             if(firstJump)
             {
@@ -90,30 +89,6 @@ public class BoardManager : MonoBehaviour
                 turns.IncreaseTurn();
                 turns.IsClickable = true;
                 turns.OutlineUpdate();
-            }
-        }
-    }
-
-    public float waitTime;
-    int[,] boardJumps;
-    private void PredictJumps(int positionX, int positionY, bool firstJump)
-    {
-        if (positionX != -1 && positionX != 8 && positionY != -1 && positionY != 8)
-        {
-            if(firstJump)
-            {
-                waitTime = -1;
-                boardJumps = (int[,])board.Clone();
-            }
-            boardJumps[positionX, positionY] += 1;
-            if (boardJumps[positionX, positionY] == 4)
-            {
-                boardJumps[positionX, positionY] = 0;
-                waitTime += 1;
-                PredictJumps(positionX + 1, positionY, false);
-                PredictJumps(positionX - 1, positionY, false);
-                PredictJumps(positionX, positionY + 1, false);
-                PredictJumps(positionX, positionY - 1, false);
             }
         }
     }
@@ -176,25 +151,21 @@ public class BoardManager : MonoBehaviour
                 Token1 = Player1_1;
                 Token2 = Player1_2;
                 Token3 = Player1_3;
-                Token4 = Player1_4;
                 break;
             case 2:
                 Token1 = Player2_1;
                 Token2 = Player2_2;
                 Token3 = Player2_3;
-                Token4 = Player2_4;
                 break;
             case 3:
                 Token1 = Player3_1;
                 Token2 = Player3_2;
                 Token3 = Player3_3;
-                Token4 = Player3_4;
                 break;
             case 4:
                 Token1 = Player4_1;
                 Token2 = Player4_2;
                 Token3 = Player4_3;
-                Token4 = Player4_4;
                 break;
         }
     }
