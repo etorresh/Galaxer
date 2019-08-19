@@ -7,9 +7,40 @@ public class PlayerSpawn : MonoBehaviour
     public int player;
     public GameObject token;
 
+    public Camera cameraMain;
     public BoardManager board;
     public Turns turns;
     public GameObject play;
+
+    private void Start()
+    {
+        Vector3 mPos = cameraMain.ViewportToWorldPoint(new Vector3(0, 0, 0));
+        switch (player)
+        {
+            case 1:
+                mPos = cameraMain.ViewportToWorldPoint(new Vector3(0, 1, 0));
+                mPos.x += gameObject.GetComponent<Collider>().bounds.size.x / 2;
+                mPos.z -= gameObject.GetComponent<Collider>().bounds.size.z / 2;
+                break;
+            case 2:
+                mPos = cameraMain.ViewportToWorldPoint(new Vector3(1, 1, 0));
+                mPos.x -= gameObject.GetComponent<Collider>().bounds.size.x / 2;
+                mPos.z -= gameObject.GetComponent<Collider>().bounds.size.z / 2;
+                break;
+
+            case 3:
+                mPos.x += gameObject.GetComponent<Collider>().bounds.size.x / 2;
+                mPos.z += gameObject.GetComponent<Collider>().bounds.size.z / 2;
+                break;
+            case 4:
+                mPos = cameraMain.ViewportToWorldPoint(new Vector3(1, 0, 0));
+                mPos.x -= gameObject.GetComponent<Collider>().bounds.size.x / 2;
+                mPos.z += gameObject.GetComponent<Collider>().bounds.size.z / 2;
+                break;
+        }
+        mPos.y = 0;
+        transform.position = mPos;
+    }
 
     private void OnMouseDown()
     {
