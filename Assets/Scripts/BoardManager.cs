@@ -66,7 +66,6 @@ public class BoardManager : MonoBehaviour
                 if (firstJump)
                 {
                     // Predict jump time here.
-                    // The prediction is done here because it uses the board
                     waitTime = pf.Run(board, positionX, positionY);
                     turns.IsClickable = false;
                     turns.OutlineUpdate();
