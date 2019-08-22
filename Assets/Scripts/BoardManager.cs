@@ -41,7 +41,7 @@ public class BoardManager : MonoBehaviour
             if (board[positionX, positionY] < 3)
             {
                 // Delete old token gameobject
-                if(tokenRegistry[positionX, positionY] != null)
+                if (tokenRegistry[positionX, positionY] != null)
                 {
                     Destroy(tokenRegistry[positionX, positionY]);
                 }
@@ -67,6 +67,7 @@ public class BoardManager : MonoBehaviour
                 {
                     // Predict jump time here.
                     waitTime = pf.Run(board, positionX, positionY);
+                    print(waitTime);
                     turns.IsClickable = false;
                     turns.OutlineUpdate();
                 }
@@ -81,13 +82,12 @@ public class BoardManager : MonoBehaviour
                 AddPoint(positionX - 1, positionY, false);
                 AddPoint(positionX + 1, positionY, false);
             }
-            if(firstJump)
+            if (firstJump)
             {
                 // Use jump prediction time to wait here.
                 yield return new WaitForSeconds(waitTime);
+                waitTime = 0;
                 turns.IncreaseTurn();
-                turns.IsClickable = true;
-                turns.OutlineUpdate();
             }
         }
     }

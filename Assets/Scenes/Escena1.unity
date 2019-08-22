@@ -651,7 +651,7 @@ MonoBehaviour:
   currentTurn: 0
   IsClickable: 1
   board: {fileID: 644401885}
---- !u!114 &644401891
+--- !u!114 &644401892
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 644401883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f367c378bdc7e494cbe267dee57a7ea8, type: 3}
+  m_Script: {fileID: 11500000, guid: 93b604a37dc32e14d80fadf8c447517f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &664938066
@@ -1296,7 +1296,52 @@ PrefabInstance:
         type: 3}
       propertyPath: pf
       value: 
-      objectReference: {fileID: 644401891}
+      objectReference: {fileID: 644401892}
+    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
+        type: 3}
+      propertyPath: m_HDR
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.20784315
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.2392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.24705884
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
+        type: 3}
+      propertyPath: m_BackGroundColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
+        type: 3}
+      propertyPath: m_FOVAxisMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
+        type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
+        type: 3}
+      propertyPath: orthographic size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6037856763743913664, guid: e8637b6be72d6474c9d8df898fe6b772,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1351,51 +1396,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
-        type: 3}
-      propertyPath: m_HDR
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
-        type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.20784315
-      objectReference: {fileID: 0}
-    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.2392157
-      objectReference: {fileID: 0}
-    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.24705884
-      objectReference: {fileID: 0}
-    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
-        type: 3}
-      propertyPath: m_BackGroundColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
-        type: 3}
-      propertyPath: m_FOVAxisMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
-        type: 3}
-      propertyPath: orthographic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
-        type: 3}
-      propertyPath: orthographic size
-      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8637b6be72d6474c9d8df898fe6b772, type: 3}
