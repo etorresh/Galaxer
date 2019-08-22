@@ -31,6 +31,7 @@ public class JumpManager : MonoBehaviour
         }
     }
 
+
     private void ChooseModel()
     {
         switch (turns.currentTurn)

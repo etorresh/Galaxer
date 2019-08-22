@@ -34,17 +34,18 @@ public class Turns : MonoBehaviour
     {
         if (!WinCheck())
         {
-            board.waitTime = 0;
             currentTurnIndex += 1;
             if (players.Length == currentTurnIndex)
             {
                 currentTurnIndex = 0;
             }
             currentTurn = players[currentTurnIndex];
+            IsClickable = true;
+            OutlineUpdate();
         }
     }
 
-    public bool WinCheck()
+    private bool WinCheck()
     {
         // returns wiiner, if no one has won returns 0
         bool oneAlive, twoAlive, threeAlive, fourAlive;
