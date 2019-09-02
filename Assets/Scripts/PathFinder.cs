@@ -24,8 +24,10 @@ public class PathFinder : MonoBehaviour
         timer = 0;
         originX = posX;
         originY = posY;
-
+        // Debug Pathfinder
+        print(Nasty2D(Paths));
         CreatePaths(originX, originY);
+        print(Nasty2D(Paths));
         FindPath(originX, originY);
         return Mathf.Max(pathsTime.ToArray());
     }
@@ -66,12 +68,17 @@ public class PathFinder : MonoBehaviour
         // Runs throughout all possible path deadends and returns the size of the longest one.
         // if a deadend is found: send positon value to blacklist and timer to pathsTime, then reset timer.
         int[] surroundingValues = new int[4];
-        int currentPositon = Paths[posX, posY];
+        int currentPosition = Paths[posX, posY];
+        if(posX == originX && posY == originY && timer == 0)
+        {
+            currentPosition = 1;
+        }
+        Debug.Log("Findpath cycle: " + currentPosition);
         bool move = false;
 
         if (posX != 7)
         {
-            if (Paths[posX + 1, posY] > currentPositon && !blacklist.Contains(Paths[posX + 1, posY]))
+            if (currentPosition < Paths[posX + 1, posY] && !blacklist.Contains(Paths[posX + 1, posY]))
             {
                 surroundingValues[0] = Paths[posX + 1, posY];
                 move = true;
@@ -79,7 +86,7 @@ public class PathFinder : MonoBehaviour
         }
         if (posX != 0)
         {
-            if (Paths[posX - 1, posY] > currentPositon && !blacklist.Contains(Paths[posX - 1, posY]))
+            if (currentPosition < Paths[posX - 1, posY] && !blacklist.Contains(Paths[posX - 1, posY]))
             {
                 surroundingValues[1] = Paths[posX - 1, posY];
                 move = true;
@@ -87,7 +94,7 @@ public class PathFinder : MonoBehaviour
         }
         if (posY != 7)
         {
-            if (Paths[posX, posY + 1] > currentPositon && !blacklist.Contains(Paths[posX, posY + 1]))
+            if (currentPosition < Paths[posX, posY + 1] && !blacklist.Contains(Paths[posX, posY + 1]))
             {
                 surroundingValues[2] = Paths[posX, posY + 1];
                 move = true;
@@ -95,47 +102,64 @@ public class PathFinder : MonoBehaviour
         }
         if (posY != 0)
         {
-            if (Paths[posX, posY - 1] > currentPositon && !blacklist.Contains(Paths[posX, posY - 1]))
+            if (currentPosition < Paths[posX, posY - 1] && !blacklist.Contains(Paths[posX, posY - 1]))
             {
                 surroundingValues[3] = Paths[posX, posY - 1];
                 move = true;
             }
         }
 
+
         if (move)
         {
             int pathIndex = Array.IndexOf(surroundingValues, Mathf.Max(surroundingValues));
+            timer++;
             if (pathIndex == 0)
             {
-                timer++;
                 FindPath(posX + 1, posY);
             }
-            if (pathIndex == 1)
+            else if (pathIndex == 1)
             {
-                timer++;
                 FindPath(posX - 1, posY);
             }
-            if (pathIndex == 2)
+            else if (pathIndex == 2)
             {
-                timer++;
                 FindPath(posX, posY + 1);
             }
-            if (pathIndex == 3)
+            else if (pathIndex == 3)
             {
-                timer++;
                 FindPath(posX, posY - 1);
             }
         }
         else
         {
-            if (currentPositon == 1)
+            
+            if (currentPosition == 1 && posX == originX && posY == originY)
             {
+                Debug.Log("Findpath end");
                 return;
             }
-            blacklist.Add(currentPositon);
+            blacklist.Add(currentPosition);
             pathsTime.Add(timer);
             timer = 0;
             FindPath(originX, originY);
         }
+    }
+
+    private string Nasty2D(int[,] nastyArray)
+    {
+        string boardS = "";
+        for (int i = 0; i < nastyArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < nastyArray.GetLength(1); j++)
+            {
+                boardS += nastyArray[j, i] + "-";
+                if (j == (nastyArray.GetLength(1) - 1))
+                {
+                    boardS += System.Environment.NewLine;
+                }
+            }
+        }
+        return boardS;
     }
 }
