@@ -1,34 +1,45 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PathFinder : MonoBehaviour
 {
-    private int[,] Paths, boardClone;
+    private int[,] boardClone;
     private int jumpEnumerator;
 
-    private List<int> blacklist, pathsTime;
+    private List<int> blacklist, pathsTime, preventBacktrack;
+    private List<int>[,] Paths = new List<int>[8, 8];
     private int timer;
 
     private int originX, originY;
 
     public int Run(int[,] boardState, int posX, int posY)
     {
-        // Variables are declared and reset.
-        Paths = new int[8, 8];
-        boardClone = (int[,])boardState.Clone();
-        jumpEnumerator = 1;
+        // Assign empty int lists to Paths
+        for (int i = 0; i < Paths.GetLength(0); i++)
+        {
+            for (int j = 0; j < Paths.GetLength(1); j++)
+            {
+                Paths[i, j] = new List<int>();
+            }
+        }
+
+        
         blacklist = new List<int>();
         pathsTime = new List<int>();
+        preventBacktrack = new List<int>();
+
+        // Values reset for CreatePaths and FindPath
+        boardClone = (int[,])boardState.Clone();
         timer = 0;
+        jumpEnumerator = 1;
         originX = posX;
         originY = posY;
-        // Debug Pathfinder
-        print(Nasty2D(Paths));
+
         CreatePaths(originX, originY);
-        print(Nasty2D(Paths));
         FindPath(originX, originY);
+
         return Mathf.Max(pathsTime.ToArray());
     }
 
@@ -38,7 +49,7 @@ public class PathFinder : MonoBehaviour
         if (boardClone[posX, posY] == 3)
         {
             boardClone[posX, posY] = 0;
-            Paths[posX, posY] = jumpEnumerator;
+            Paths[posX, posY].Add(jumpEnumerator);
             jumpEnumerator += 1;
             if (posX != 7)
             {
@@ -68,7 +79,7 @@ public class PathFinder : MonoBehaviour
         // Runs throughout all possible path deadends and returns the size of the longest one.
         // if a deadend is found: send positon value to blacklist and timer to pathsTime, then reset timer.
         int[] surroundingValues = new int[4];
-        int currentPosition = Paths[posX, posY];
+        int currentPosition = LowestValue(Paths[posX, posY]);
         if(posX == originX && posY == originY && timer == 0)
         {
             currentPosition = 1;
@@ -78,33 +89,33 @@ public class PathFinder : MonoBehaviour
 
         if (posX != 7)
         {
-            if (currentPosition < Paths[posX + 1, posY] && !blacklist.Contains(Paths[posX + 1, posY]))
+            if (currentPosition < LowestValue(Paths[posX + 1, posY]))
             {
-                surroundingValues[0] = Paths[posX + 1, posY];
+                surroundingValues[0] = LowestValue(Paths[posX + 1, posY]);
                 move = true;
             }
         }
         if (posX != 0)
         {
-            if (currentPosition < Paths[posX - 1, posY] && !blacklist.Contains(Paths[posX - 1, posY]))
+            if (currentPosition < LowestValue(Paths[posX - 1, posY]))
             {
-                surroundingValues[1] = Paths[posX - 1, posY];
+                surroundingValues[1] = LowestValue(Paths[posX - 1, posY]);
                 move = true;
             }
         }
         if (posY != 7)
         {
-            if (currentPosition < Paths[posX, posY + 1] && !blacklist.Contains(Paths[posX, posY + 1]))
+            if (currentPosition < LowestValue(Paths[posX, posY + 1]))
             {
-                surroundingValues[2] = Paths[posX, posY + 1];
+                surroundingValues[2] = LowestValue(Paths[posX, posY + 1]);
                 move = true;
             }
         }
         if (posY != 0)
         {
-            if (currentPosition < Paths[posX, posY - 1] && !blacklist.Contains(Paths[posX, posY - 1]))
+            if (currentPosition < LowestValue(Paths[posX, posY - 1]))
             {
-                surroundingValues[3] = Paths[posX, posY - 1];
+                surroundingValues[3] = LowestValue(Paths[posX, posY - 1]);
                 move = true;
             }
         }
@@ -146,20 +157,18 @@ public class PathFinder : MonoBehaviour
         }
     }
 
-    private string Nasty2D(int[,] nastyArray)
+    private int LowestValue(List<int> x)
     {
-        string boardS = "";
-        for (int i = 0; i < nastyArray.GetLength(0); i++)
+        int minValue = 0;
+        while (x.Any() && blacklist.Contains(x.Min()))
         {
-            for (int j = 0; j < nastyArray.GetLength(1); j++)
-            {
-                boardS += nastyArray[j, i] + "-";
-                if (j == (nastyArray.GetLength(1) - 1))
-                {
-                    boardS += System.Environment.NewLine;
-                }
-            }
+            x.Remove(x.Min());
         }
-        return boardS;
+        if (x.Any())
+        {
+            minValue = x.Min();
+        }
+
+        return minValue;
     }
 }
