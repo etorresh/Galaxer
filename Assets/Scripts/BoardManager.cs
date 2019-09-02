@@ -67,7 +67,7 @@ public class BoardManager : MonoBehaviour
                 {
                     // Predict jump time here.
                     waitTime = pf.Run(board, positionX, positionY);
-                    print(waitTime);
+                    Debug.Log("waitTime: " + waitTime);
                     turns.IsClickable = false;
                     turns.OutlineUpdate();
                 }
@@ -77,6 +77,7 @@ public class BoardManager : MonoBehaviour
                 yield return new WaitForSeconds(1f);
                 // Wait a second for jump animation to end
                 // Then check surrounding tokens
+
                 AddPoint(positionX, positionY + 1, false);
                 AddPoint(positionX, positionY - 1, false);
                 AddPoint(positionX - 1, positionY, false);
@@ -85,6 +86,7 @@ public class BoardManager : MonoBehaviour
             if (firstJump)
             {
                 // Use jump prediction time to wait here.
+                //yield return new WaitForSeconds(waitTime + 0.1f);
                 yield return new WaitForSeconds(waitTime);
                 waitTime = 0;
                 turns.IncreaseTurn();

@@ -43,20 +43,20 @@ public class Turns : MonoBehaviour
             IsClickable = true;
             OutlineUpdate();
         }
+        else
+        {
+            // To-do event when someone wins
+        }
     }
 
     private bool WinCheck()
     {
-        // returns wiiner, if no one has won returns 0
+        // returns winner, if no one has won returns 0
         bool oneAlive, twoAlive, threeAlive, fourAlive;
         oneAlive = twoAlive = threeAlive = fourAlive = false;
 
         foreach (GameObject token in board.tokenRegistry)
         {
-            if (new[] { oneAlive, twoAlive, threeAlive, fourAlive }.Count(x => x) > 1)
-            {
-                break;
-            }
             if (token != null)
             {
                 if (token.GetComponent<TokenInteraction>().player == 1)
@@ -79,6 +79,7 @@ public class Turns : MonoBehaviour
         }
         if (new[] { oneAlive, twoAlive, threeAlive, fourAlive }.Count(x => x) == 1)
         {
+            // To-do check whichone won
             print("someone won");
             return true;
         }
