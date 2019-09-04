@@ -22,13 +22,18 @@ public class Codetesting : MonoBehaviour
         Paths[0, 0].Add(1);
         Paths[0, 0].Add(2);
         Paths[0, 0].Add(3);
-        blacklist.Add(1);
 
 
-        Debug.Log(LowestValue(Paths[0, 0]));
-        Debug.Log(LowestValue(Paths[0, 0]));
+        print(Nasty2D(Paths));
+   
+        //blacklist.Add(1);
+
+
+        //Debug.Log(LowestValue(Paths[0, 0]));
+        //Debug.Log(LowestValue(Paths[0, 0]));
 
     }
+
 
     private int LowestValue(List<int> x)
     {
@@ -43,5 +48,28 @@ public class Codetesting : MonoBehaviour
         }
         
         return minValue;
+    }
+
+    private string Nasty2D(List<int>[,] nastyArray)
+    {
+        string boardS = "";
+        for (int i = 0; i < nastyArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < nastyArray.GetLength(1); j++)
+            {
+                List<int> insideList = Paths[i, j];
+                foreach (int k in insideList)
+                {
+                    print("siguiente letra");
+                    boardS += k + "/";
+                }
+                boardS += "-";
+                if (j == (nastyArray.GetLength(1) - 1))
+                {
+                    boardS += System.Environment.NewLine;
+                }
+            }
+        }
+        return boardS;
     }
 }
