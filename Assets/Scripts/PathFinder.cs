@@ -8,7 +8,7 @@ public class PathFinder : MonoBehaviour
     private int[,] boardClone;
     private int jumpEnumerator;
 
-    private List<int> blacklist, pathsTime, preventBacktrack;
+    private List<int> pathsTime, preventBacktrack;
     private List<int>[,] Paths = new List<int>[8, 8];
     private int timer;
 
@@ -25,8 +25,6 @@ public class PathFinder : MonoBehaviour
             }
         }
 
-        
-        blacklist = new List<int>();
         pathsTime = new List<int>();
         preventBacktrack = new List<int>();
 
@@ -37,7 +35,9 @@ public class PathFinder : MonoBehaviour
         originX = posX;
         originY = posY;
 
+        // Run main functions
         CreatePaths(originX, originY);
+        print(Nasty2D(Paths));
         FindPath(originX, originY);
 
         return Mathf.Max(pathsTime.ToArray());
@@ -76,15 +76,13 @@ public class PathFinder : MonoBehaviour
 
     private void FindPath(int posX, int posY)
     {
+
         // Runs throughout all possible path deadends and returns the size of the longest one.
         // if a deadend is found: send positon value to blacklist and timer to pathsTime, then reset timer.
         int[] surroundingValues = new int[4];
         int currentPosition = LowestValue(Paths[posX, posY]);
-        if(posX == originX && posY == originY && timer == 0)
-        {
-            currentPosition = 1;
-        }
-        Debug.Log("Findpath cycle: " + currentPosition);
+        preventBacktrack.Add(currentPosition);
+
         bool move = false;
 
         if (posX != 7)
@@ -144,14 +142,14 @@ public class PathFinder : MonoBehaviour
         }
         else
         {
-            
-            if (currentPosition == 1 && posX == originX && posY == originY)
+
+            if (currentPosition == 1)
             {
-                Debug.Log("Findpath end");
                 return;
             }
-            blacklist.Add(currentPosition);
+            Paths[posX, posY].Remove(currentPosition);
             pathsTime.Add(timer);
+            preventBacktrack.Clear();
             timer = 0;
             FindPath(originX, originY);
         }
@@ -160,15 +158,42 @@ public class PathFinder : MonoBehaviour
     private int LowestValue(List<int> x)
     {
         int minValue = 0;
-        while (x.Any() && blacklist.Contains(x.Min()))
+        List<int> temp = new List<int>();
+        while (x.Any() && preventBacktrack.Contains(x.Min()))
         {
+            temp.Add(x.Min());
             x.Remove(x.Min());
         }
         if (x.Any())
         {
             minValue = x.Min();
         }
-
+        x.AddRange(temp);
         return minValue;
+    }
+
+
+
+
+    // Nasty way to debug a 2d list that contains a list
+    private string Nasty2D(List<int>[,] nastyArray)
+    {
+        string boardS = "";
+        for (int i = 0; i < nastyArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < nastyArray.GetLength(1); j++)
+            {
+                foreach (int k in Paths[j, i])
+                {
+                    boardS += k + "/";
+                }
+                boardS += "-";
+                if (j == (nastyArray.GetLength(1) - 1))
+                {
+                    boardS += System.Environment.NewLine;
+                }
+            }
+        }
+        return boardS;
     }
 }
