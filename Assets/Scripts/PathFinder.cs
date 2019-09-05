@@ -8,11 +8,14 @@ public class PathFinder : MonoBehaviour
     private int[,] boardClone;
     private int jumpEnumerator;
 
-    private List<int> pathsTime, preventBacktrack;
+    private List<int> pathsTime, preventBacktrack, blacklist;
     private List<int>[,] Paths = new List<int>[8, 8];
     private int timer;
 
     private int originX, originY;
+
+    int countJumps;
+
 
     public int Run(int[,] boardState, int posX, int posY)
     {
@@ -37,7 +40,6 @@ public class PathFinder : MonoBehaviour
 
         // Run main functions
         CreatePaths(originX, originY);
-        print(Nasty2D(Paths));
         FindPath(originX, originY);
 
         return Mathf.Max(pathsTime.ToArray());
@@ -121,8 +123,15 @@ public class PathFinder : MonoBehaviour
 
         if (move)
         {
-            int pathIndex = Array.IndexOf(surroundingValues, Mathf.Max(surroundingValues));
+            int[] surroundingSorted = (int[])surroundingValues.Clone();
+            Array.Sort(surroundingSorted);
+            int sIndex = Array.BinarySearch(surroundingSorted, currentPosition);
+            int nearest = surroundingSorted[~sIndex];
+            Debug.Log(nearest);
+            int pathIndex = Array.IndexOf(surroundingValues, nearest);
+
             timer++;
+
             if (pathIndex == 0)
             {
                 FindPath(posX + 1, posY);
@@ -159,7 +168,7 @@ public class PathFinder : MonoBehaviour
     {
         int minValue = 0;
         List<int> temp = new List<int>();
-        while (x.Any() && preventBacktrack.Contains(x.Min()))
+        while (x.Any() && preventBacktrack.Contains(x.Min()) )
         {
             temp.Add(x.Min());
             x.Remove(x.Min());
@@ -187,7 +196,7 @@ public class PathFinder : MonoBehaviour
                 {
                     boardS += k + "/";
                 }
-                boardS += "-";
+                boardS += " - ";
                 if (j == (nastyArray.GetLength(1) - 1))
                 {
                     boardS += System.Environment.NewLine;
