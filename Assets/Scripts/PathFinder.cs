@@ -40,6 +40,7 @@ public class PathFinder : MonoBehaviour
 
         // Run main functions
         CreatePaths(originX, originY);
+        CheckConsecutive();
         FindPath(originX, originY);
 
         return Mathf.Max(pathsTime.ToArray());
@@ -78,12 +79,12 @@ public class PathFinder : MonoBehaviour
 
     private void FindPath(int posX, int posY)
     {
-
         // Runs throughout all possible path deadends and returns the size of the longest one.
         // if a deadend is found: send positon value to blacklist and timer to pathsTime, then reset timer.
         int[] surroundingValues = new int[4];
-        int currentPosition = LowestValue(Paths[posX, posY]);
+        int currentPosition = LowestValue(Paths[posX, posY]); 
         preventBacktrack.Add(currentPosition);
+        Debug.Log("Vamos en: " + currentPosition);
 
         bool move = false;
 
@@ -127,7 +128,6 @@ public class PathFinder : MonoBehaviour
             Array.Sort(surroundingSorted);
             int sIndex = Array.BinarySearch(surroundingSorted, currentPosition);
             int nearest = surroundingSorted[~sIndex];
-            Debug.Log(nearest);
             int pathIndex = Array.IndexOf(surroundingValues, nearest);
 
             timer++;
@@ -151,7 +151,7 @@ public class PathFinder : MonoBehaviour
         }
         else
         {
-
+            Debug.Log("Se acabo en: " + currentPosition);
             if (currentPosition == 1)
             {
                 return;
@@ -167,6 +167,7 @@ public class PathFinder : MonoBehaviour
     private int LowestValue(List<int> x)
     {
         int minValue = 0;
+
         List<int> temp = new List<int>();
         while (x.Any() && preventBacktrack.Contains(x.Min()) )
         {
@@ -181,6 +182,15 @@ public class PathFinder : MonoBehaviour
         return minValue;
     }
 
+    private void CheckConsecutive()
+    {
+        int totalJumps = jumpEnumerator - 1;
+        int currentJump = 1;
+        while (currentJump != 14)
+        {
+
+        }
+    }
 
 
 
