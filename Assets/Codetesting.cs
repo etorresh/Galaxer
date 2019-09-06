@@ -6,19 +6,29 @@ using System;
 
 public class Codetesting : MonoBehaviour
 {
+    int[,] board;
+
     void Start()
     {
-        int currentPosition = 2;
-        int[] surroundingValues = new int[4];
-        surroundingValues[0] = 4;
-        surroundingValues[1] = 6;
-        surroundingValues[2] = 5;
-        surroundingValues[3] = 3;
+        board = new int[8, 8];
+        board[1, 1] = 3;
+        board[2, 1] = 3;
 
-        Array.Sort(surroundingValues);
-        int sIndex = Array.BinarySearch(surroundingValues, currentPosition);
-        print(~sIndex);
-        Debug.Log(surroundingValues[~sIndex]);
+        int startingX = 1;
+        int startingY = 1;
 
+        StartCoroutine(Point(true));
+    }
+
+    IEnumerator Point(bool x)
+    {
+        Debug.Log("starting");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("calling itself");
+        if(x)
+        {
+            yield return StartCoroutine(Point(false));
+        }
+        Debug.Log("ending");
     }
 }

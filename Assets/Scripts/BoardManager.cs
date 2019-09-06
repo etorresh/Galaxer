@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using System.Threading;
 
 public class BoardManager : MonoBehaviour
 {
@@ -77,6 +78,7 @@ public class BoardManager : MonoBehaviour
                 // Wait a second for jump animation to end
                 // Then check surrounding tokens
 
+
                 AddPoint(positionX, positionY + 1, false);
                 AddPoint(positionX, positionY - 1, false);
                 AddPoint(positionX - 1, positionY, false);
@@ -85,8 +87,7 @@ public class BoardManager : MonoBehaviour
             if (firstJump)
             {
                 // Use jump prediction time to wait here.
-                //yield return new WaitForSeconds(waitTime + 0.1f);
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(waitTime + 0.1f);
                 waitTime = 0;
                 turns.IncreaseTurn();
             }
