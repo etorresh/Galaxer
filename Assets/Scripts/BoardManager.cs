@@ -7,7 +7,7 @@ public class BoardManager : MonoBehaviour
     int[,] board = new int[8, 8];
     public Turns turns;
     public JumpManager jump;
-    public PathFinder pf;
+    //public PathFinder pf;
 
     public GameObject[,] tokenRegistry;
     public GameObject Player1_1, Player1_2, Player1_3;
@@ -47,6 +47,7 @@ public class BoardManager : MonoBehaviour
                 }
                 board[positionX, positionY] += 1;
                 // Spawn new token
+                Debug.Log("Spawning new token");
                 Vector3 originPos = new Vector3(positionX, 0.1f, -positionY + 4);
                 switch (board[positionX, positionY])
                 {
@@ -66,8 +67,8 @@ public class BoardManager : MonoBehaviour
                 if (firstJump)
                 {
                     // Predict jump time here.
-                    waitTime = pf.Run(board, positionX, positionY);
-                    Debug.Log("waitTime: " + waitTime);
+                    //waitTime = pf.Run(board, positionX, positionY);
+                    //Debug.Log("waitTime: " + waitTime);
                     turns.IsClickable = false;
                     turns.OutlineUpdate();
                 }
@@ -78,18 +79,19 @@ public class BoardManager : MonoBehaviour
                 // Wait a second for jump animation to end
                 // Then check surrounding tokens
 
-
-                AddPoint(positionX, positionY + 1, false);
-                AddPoint(positionX, positionY - 1, false);
-                AddPoint(positionX - 1, positionY, false);
-                AddPoint(positionX + 1, positionY, false);
+                Debug.Log("New path");
+                yield return StartCoroutine(Point(positionX, positionY + 1, false));
+                yield return StartCoroutine(Point(positionX, positionY - 1, false));
+                yield return StartCoroutine(Point(positionX - 1, positionY, false));
+                yield return StartCoroutine(Point(positionX + 1, positionY, false));
             }
             if (firstJump)
             {
                 // Use jump prediction time to wait here.
-                yield return new WaitForSeconds(waitTime + 0.1f);
-                waitTime = 0;
+                //yield return new WaitForSeconds(waitTime + 0.1f);
+                //waitTime = 0;
                 turns.IncreaseTurn();
+                Debug.Log("The end.");
             }
         }
     }
