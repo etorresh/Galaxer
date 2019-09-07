@@ -651,18 +651,10 @@ MonoBehaviour:
   currentTurn: 0
   IsClickable: 1
   board: {fileID: 644401885}
---- !u!114 &644401892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 644401883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93b604a37dc32e14d80fadf8c447517f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  player1: 0
+  player2: 0
+  player3: 0
+  player4: 0
 --- !u!1 &664938066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,7 +1288,7 @@ PrefabInstance:
         type: 3}
       propertyPath: pf
       value: 
-      objectReference: {fileID: 644401892}
+      objectReference: {fileID: 0}
     - target: {fileID: 6037856763743913679, guid: e8637b6be72d6474c9d8df898fe6b772,
         type: 3}
       propertyPath: m_HDR
