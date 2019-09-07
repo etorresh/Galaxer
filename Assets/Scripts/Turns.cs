@@ -11,6 +11,7 @@ public class Turns : MonoBehaviour
     public bool IsClickable = true;
     int currentTurnIndex;
     public BoardManager board;
+    public bool player1, player2, player3, player4;
 
     public void GameStart()
     {
@@ -39,6 +40,26 @@ public class Turns : MonoBehaviour
             {
                 currentTurnIndex = 0;
             }
+
+            var alive = AliveCheck();
+
+            if(player1 && !alive[0] && currentTurnIndex == 0)
+            {
+                currentTurnIndex += 1;
+            }
+            if (player2 && !alive[1] && currentTurnIndex == 1)
+            {
+                currentTurnIndex += 1;
+            }
+            if (player3 && !alive[2] && currentTurnIndex == 2)
+            {
+                currentTurnIndex += 1;
+            }
+            if (player4 && !alive[3] && currentTurnIndex == 3)
+            {
+                currentTurnIndex += 1;
+            }
+
             currentTurn = players[currentTurnIndex];
             IsClickable = true;
             OutlineUpdate();
@@ -49,12 +70,10 @@ public class Turns : MonoBehaviour
         }
     }
 
-    private bool WinCheck()
+    private bool[] AliveCheck()
     {
-        // returns winner, if no one has won returns 0
         bool oneAlive, twoAlive, threeAlive, fourAlive;
         oneAlive = twoAlive = threeAlive = fourAlive = false;
-
         foreach (GameObject token in board.tokenRegistry)
         {
             if (token != null)
@@ -77,7 +96,18 @@ public class Turns : MonoBehaviour
                 }
             }
         }
-        if (new[] { oneAlive, twoAlive, threeAlive, fourAlive }.Count(x => x) == 1)
+        bool[] alive = new bool[4];
+        alive[0] = oneAlive;
+        alive[1] = twoAlive;
+        alive[2] = threeAlive;
+        alive[3] = fourAlive;
+        return alive;
+    }
+
+    private bool WinCheck()
+    {
+        var alive = AliveCheck();
+        if (alive.Count(x => x) == 1)
         {
             // To-do check whichone won
             print("someone won");

@@ -20,6 +20,7 @@ public class TokenInteraction : MonoBehaviour
     {
         if(turns.currentTurn == player && turns.IsClickable)
         {
+            turns.IsClickable = false;
             board.ChooseModel();
             board.AddPoint((int)gameObject.transform.position.x, 4 - (int)gameObject.transform.position.z, true);
         }
