@@ -41,8 +41,18 @@ public class BoardManager : MonoBehaviour
                     turns.OutlineUpdate();
                 }
                 board[positionX, positionY] = 0;
-                jump.Jump(positionX, positionY);
+
                 Destroy(tokenRegistry[positionX, positionY]);
+                GameObject token4 = Instantiate(Token4, new Vector3(positionX, 0.1f, -positionY + 4), Quaternion.identity);
+                float waitTime = 0.20f;
+                if(firstJump)
+                {
+                    waitTime = 0.35f;
+                }
+                yield return new WaitForSeconds(waitTime);
+                Destroy(token4);
+
+                jump.Jump(positionX, positionY);
 
                 // Wait a second for jump animation to end
                 yield return new WaitForSeconds(1f);
