@@ -11,6 +11,9 @@ public class PlayerSpawn : MonoBehaviour
     public BoardManager board;
     public Turns turns;
     public GameObject play;
+    public Sprite playerIconColor;
+    public Sprite playerIconGray;
+    public SpriteRenderer playerIcon;
 
     private void Start()
     {
@@ -50,6 +53,7 @@ public class PlayerSpawn : MonoBehaviour
         // Activates play button if there are 2 or more players.
         if (token.activeSelf)
         {
+            playerIcon.sprite = playerIconColor;
             turns.currentPlayers += 1;
             if (turns.currentPlayers >= 2)
             {
@@ -58,6 +62,7 @@ public class PlayerSpawn : MonoBehaviour
         }
         else
         {
+            playerIcon.sprite = playerIconGray;
             turns.currentPlayers -= 1;
             if (turns.currentPlayers == 1)
             {
