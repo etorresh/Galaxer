@@ -16,6 +16,8 @@ public class BoardManager : MonoBehaviour
 
     private void Start()
     {
+        Physics.autoSimulation = false;
+
         tokenRegistry = new GameObject[8, 8];
     }
 
