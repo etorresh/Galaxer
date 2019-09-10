@@ -12,6 +12,7 @@ public class Turns : MonoBehaviour
     int currentTurnIndex;
     public BoardManager board;
     public bool player1, player2, player3, player4;
+    public GameObject resetButton;
 
     public void GameStart()
     {
@@ -67,6 +68,7 @@ public class Turns : MonoBehaviour
         else
         {
             // To-do event when someone wins
+            resetButton.SetActive(true);
         }
     }
 
@@ -78,19 +80,20 @@ public class Turns : MonoBehaviour
         {
             if (token != null)
             {
-                if (token.GetComponent<TokenInteraction>().player == 1)
+                int currentPlayer = token.GetComponent<TokenInteraction>().player;
+                if (currentPlayer == 1)
                 {
                     oneAlive = true;
                 }
-                if (token.GetComponent<TokenInteraction>().player == 2)
+                else if (currentPlayer == 2)
                 {
                     twoAlive = true;
                 }
-                if (token.GetComponent<TokenInteraction>().player == 3)
+                else if (currentPlayer == 3)
                 {
                     threeAlive = true;
                 }
-                if (token.GetComponent<TokenInteraction>().player == 4)
+                else if (currentPlayer == 4)
                 {
                     fourAlive = true;
                 }
@@ -109,8 +112,6 @@ public class Turns : MonoBehaviour
         var alive = AliveCheck();
         if (alive.Count(x => x) == 1)
         {
-            // To-do check whichone won
-            print("someone won");
             return true;
         }
         return false; 
