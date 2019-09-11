@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
 {
     public Image title;
     public Image background;
+    public Camera introCamera;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class MainMenu : MonoBehaviour
         title.CrossFadeAlpha(0, 3, false);
         background.CrossFadeAlpha(0, 3, false);
         SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        Destroy(introCamera, 3f);
         Destroy(gameObject, 3f);
     }
 }

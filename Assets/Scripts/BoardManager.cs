@@ -14,6 +14,9 @@ public class BoardManager : MonoBehaviour
     public GameObject Player4_1, Player4_2, Player4_3, Player4_4;
     private GameObject Token1, Token2, Token3, Token4;
 
+    public AudioSource source;
+    public AudioClip pointSound, explosionSound;
+
     private void Start()
     {
         Physics.autoSimulation = false;
@@ -28,6 +31,8 @@ public class BoardManager : MonoBehaviour
 
     public void AddPoint(int positionX, int positionY, bool firstJump)
     {
+        source.clip = pointSound;
+        source.Play();
         StartCoroutine(Point(positionX, positionY, firstJump));
     }
 
@@ -37,13 +42,15 @@ public class BoardManager : MonoBehaviour
         {
             if (board[positionX, positionY] == 3)
             {
-
+                
                 if (firstJump)
                 {
                     turns.OutlineUpdate();
                 }
+
                 board[positionX, positionY] = 0;
 
+                
                 Destroy(tokenRegistry[positionX, positionY]);
                 GameObject token4 = Instantiate(Token4, new Vector3(positionX, 0.1f, -positionY + 4), Quaternion.identity);
                 float waitTime = 0.20f;
@@ -54,10 +61,13 @@ public class BoardManager : MonoBehaviour
                 yield return new WaitForSeconds(waitTime);
                 Destroy(token4);
 
+                source.clip = explosionSound;
+                source.Play();
                 jump.Jump(positionX, positionY);
 
-                // Wait a second for jump animation to end
-                yield return new WaitForSeconds(1f);
+
+                // Wait for jump animation to end
+                yield return new WaitForSeconds(0.9f);
 
                 bool right, left, down, up;
                 right = left = down = up = false;
