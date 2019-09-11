@@ -18,7 +18,7 @@ public class TokenInteraction : MonoBehaviour
 
     void OnMouseDown()
     {
-        if(turns.currentTurn == player && turns.IsClickable)
+        if (turns.currentTurn == player && turns.IsClickable)
         {
             turns.IsClickable = false;
             board.ChooseModel();
