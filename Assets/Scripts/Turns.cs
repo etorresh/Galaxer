@@ -13,6 +13,7 @@ public class Turns : MonoBehaviour
     public BoardManager board;
     public bool player1, player2, player3, player4;
     public GameObject resetButton;
+    public AdManager adM;
 
     public void GameStart()
     {
@@ -69,6 +70,7 @@ public class Turns : MonoBehaviour
         {
             // To-do event when someone wins
             resetButton.SetActive(true);
+            adM.StartCoroutine(adM.ShowVideoWhenReady());
         }
     }
 
