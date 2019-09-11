@@ -6,6 +6,7 @@ public class Play : MonoBehaviour
 {
     public Turns turns;
     public PlayerSpawn spawner1, spawner2, spawner3, spawner4;
+    public AdManager adM;
 
 
     private void OnMouseDown()
@@ -15,6 +16,7 @@ public class Play : MonoBehaviour
         spawner3.StartGame();
         spawner4.StartGame();
         turns.GameStart();
+        adM.StartCoroutine(adM.ShowBannerWhenReady());
         Destroy(gameObject);
     }
 }

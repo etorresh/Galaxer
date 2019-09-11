@@ -929,6 +929,7 @@ MonoBehaviour:
   spawner2: {fileID: 885168746}
   spawner3: {fileID: 2014266273}
   spawner4: {fileID: 433081867}
+  adM: {fileID: 644401893}
 --- !u!1 &644401883 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6037856763743913676, guid: e8637b6be72d6474c9d8df898fe6b772,
@@ -1110,6 +1111,7 @@ MonoBehaviour:
   player3: 0
   player4: 0
   resetButton: {fileID: 304098100}
+  adM: {fileID: 644401893}
 --- !u!114 &644401891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,6 +1189,18 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 1
+--- !u!114 &644401893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644401883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 484af999d0e4b03479762778b9ec9f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &664938066
 GameObject:
   m_ObjectHideFlags: 0
