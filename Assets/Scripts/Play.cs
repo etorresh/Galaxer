@@ -16,7 +16,7 @@ public class Play : MonoBehaviour
         spawner3.StartGame();
         spawner4.StartGame();
         turns.GameStart();
-        adM.StartCoroutine(adM.ShowBannerWhenReady());
+        adM.ShowBannerWhenReady();
         Destroy(gameObject);
     }
 }
