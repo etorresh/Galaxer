@@ -6,7 +6,7 @@ using UnityEngine.Advertisements;
 public class AdManager : MonoBehaviour
 {
     string gameId = "3287998";
-    bool testMode = false;
+    bool testMode = true;
 
     private void Start()
     {
@@ -25,12 +25,16 @@ public class AdManager : MonoBehaviour
         Advertisement.Show("video");
     }
 
-    public IEnumerator ShowBannerWhenReady()
+    public void ShowBannerWhenReady()
     {
-        while (!Advertisement.IsReady("bannerAd"))
+        if (Advertisement.Banner.isLoaded || Advertisement.IsReady("bannerAd"))
         {
-            yield return new WaitForSeconds(0.5f);
+            Advertisement.Banner.Show("bannerAd");
         }
-        Advertisement.Banner.Show("bannerAd");
+    }
+
+    public void HideBanner()
+    {
+        Advertisement.Banner.Hide();
     }
 }

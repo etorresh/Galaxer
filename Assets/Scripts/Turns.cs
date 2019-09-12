@@ -69,9 +69,16 @@ public class Turns : MonoBehaviour
         else
         {
             // To-do event when someone wins
-            resetButton.SetActive(true);
+            adM.HideBanner();
             adM.StartCoroutine(adM.ShowVideoWhenReady());
+            StartCoroutine(EnableReset());
         }
+    }
+
+    IEnumerator EnableReset()
+    {
+        yield return new WaitForSeconds(1.1f);
+        resetButton.SetActive(true);
     }
 
     private bool[] AliveCheck()
