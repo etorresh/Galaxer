@@ -69,7 +69,6 @@ public class Turns : MonoBehaviour
         else
         {
             // To-do event when someone wins
-            adM.HideBanner();
             adM.StartCoroutine(adM.ShowVideoWhenReady());
             StartCoroutine(EnableReset());
         }
