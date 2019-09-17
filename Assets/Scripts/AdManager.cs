@@ -24,17 +24,4 @@ public class AdManager : MonoBehaviour
 
         Advertisement.Show("video");
     }
-
-    public void ShowBannerWhenReady()
-    {
-        if (Advertisement.Banner.isLoaded || Advertisement.IsReady("bannerAd"))
-        {
-            Advertisement.Banner.Show("bannerAd");
-        }
-    }
-
-    public void HideBanner()
-    {
-        Advertisement.Banner.Hide();
-    }
 }
