@@ -38,14 +38,15 @@ public class Turns : MonoBehaviour
         if (!WinCheck())
         {
             currentTurnIndex += 1;
+
+            var alive = AliveCheck();
+
             if (players.Length == currentTurnIndex)
             {
                 currentTurnIndex = 0;
             }
 
-            var alive = AliveCheck();
-
-            if(player1 && !alive[0] && currentTurnIndex == 0)
+            if (player1 && !alive[0] && currentTurnIndex == 0)
             {
                 currentTurnIndex += 1;
             }
@@ -60,6 +61,27 @@ public class Turns : MonoBehaviour
             if (player4 && !alive[3] && currentTurnIndex == 3)
             {
                 currentTurnIndex += 1;
+            }
+
+            if (players.Length == currentTurnIndex)
+            {
+                currentTurnIndex = 0;
+                if (player1 && !alive[0] && currentTurnIndex == 0)
+                {
+                    currentTurnIndex += 1;
+                }
+                if (player2 && !alive[1] && currentTurnIndex == 1)
+                {
+                    currentTurnIndex += 1;
+                }
+                if (player3 && !alive[2] && currentTurnIndex == 2)
+                {
+                    currentTurnIndex += 1;
+                }
+                if (player4 && !alive[3] && currentTurnIndex == 3)
+                {
+                    currentTurnIndex += 1;
+                }
             }
 
             currentTurn = players[currentTurnIndex];
